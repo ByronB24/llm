@@ -1,4 +1,4 @@
 {
-    "jupyter.notebookFileRoot": "workspaceFolder"
-  }
-  
+  "jupyter.notebookFileRoot": "workspaceFolder",
+  "editor.formatOnSave": false
+}

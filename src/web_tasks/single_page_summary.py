@@ -61,7 +61,7 @@ class WebsiteContentSummarizer:
 
         Notes
         -----
-        This method:
+        Actions:
         1. Retrieves the website content using `requests.get`.
         2. Raises an HTTPError if the request fails (4xx or 5xx).
         3. Uses BeautifulSoup to parse the HTML content.

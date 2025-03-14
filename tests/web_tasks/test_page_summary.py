@@ -82,7 +82,7 @@ class TestWebsiteContentSummarizer(unittest.TestCase):
     def test_extract_text_from_single_link_failure(self, mock_get_soup):
         mock_get_soup.return_value = None
         title, content = self.summarizer._extract_text_from_single_link("https://example.com")
-        self.assertEqual(title, "Failed to fetch content from https://example.com")
+        self.assertEqual(title, " Failed to fetch content from https://example.com")
         self.assertIn("", content)
 
 

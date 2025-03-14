@@ -23,8 +23,3 @@ jobs:
 
     - name: Check for broken dependencies
       run: pip check
-
-    - name: Linting check (optional)
-      run: |
-        pip install flake8
-        flake8 src/

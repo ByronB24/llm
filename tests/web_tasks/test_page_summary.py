@@ -11,8 +11,9 @@ class TestWebsiteContentSummarizer(unittest.TestCase):
 
     def setUp(self):
         self.mock_openai = MagicMock()
+        self.sample_site = "https://example.com "
         self.summarizer = WebsiteContentSummarizer(
-                                                    url="https://example.com",
+                                                    url=self.sample_site,
                                                     openai_instance=self.mock_openai,
                                                     openai_model="test-model",
                                                     explore_multiple_links=False,
@@ -24,7 +25,7 @@ class TestWebsiteContentSummarizer(unittest.TestCase):
     def test_get_soup_success(self, mock_get):
         mock_get.return_value.status_code = 200
         mock_get.return_value.content = b"<html><head><title>Test</title></head><body>Hello</body></html>"
-        soup = self.summarizer._get_soup("https://example.com")
+        soup = self.summarizer._get_soup(self.sample_site)
         self.assertIsInstance(soup, BeautifulSoup)
         self.assertEqual(soup.title.string, "Test")
         self.assertEqual(soup.body.string, "Hello")
@@ -32,7 +33,7 @@ class TestWebsiteContentSummarizer(unittest.TestCase):
     @patch("src.web_tasks.page_summary.requests.get")
     def test_get_soup_failure(self, mock_get):
         mock_get.side_effect = requests.RequestException("BoomBadaBoom!")
-        soup = self.summarizer._get_soup("https://example.com")
+        soup = self.summarizer._get_soup(self.sample_site)
         self.assertIsNone(soup)
 
     def test_prepare_user_prompt(self):
@@ -74,15 +75,15 @@ class TestWebsiteContentSummarizer(unittest.TestCase):
         html = "<html><head><title>Sample Page</title></head><body><p>Content</p></body></html>"
         soup = BeautifulSoup(html, "html.parser")
         mock_get_soup.return_value = soup
-        title, content = self.summarizer._extract_text_from_single_link("https://example.com")
+        title, content = self.summarizer._extract_text_from_single_link(self.sample_site)
         self.assertEqual(title, "Sample Page")
         self.assertIn("Content", content)
 
     @patch.object(WebsiteContentSummarizer, "_get_soup")
     def test_extract_text_from_single_link_failure(self, mock_get_soup):
         mock_get_soup.return_value = None
-        title, content = self.summarizer._extract_text_from_single_link("https://example.com")
-        self.assertEqual(title, "Failed to fetch content from https://example.com")
+        title, content = self.summarizer._extract_text_from_single_link(self.sample_site)
+        self.assertEqual(title, f"Failed to fetch content from {self.sample_site}")
         self.assertIn("", content)
 
 

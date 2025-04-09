@@ -36,7 +36,7 @@ class ChromeDriverMixin:
     Mixin class to manage Chrome WebDriver initialization and teardown.
     """
 
-    def _init_driver(self) -> webdriver.Chrome:
+    def _init_driver(self, headless:bool = True) -> webdriver.Chrome:
         """
         Initialises a ChromeDriver instance.
 
@@ -46,7 +46,8 @@ class ChromeDriverMixin:
             The initialized ChromeDriver instance.
         """
         options = Options()
-        options.add_argument("--headless")
+        if headless:
+            options.add_argument("--headless")
         options.add_argument("--disable-gpu")
         options.add_argument("--no-sandbox")
         options.add_argument("--window-size=1920,1080")

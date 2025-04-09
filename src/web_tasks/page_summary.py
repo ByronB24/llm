@@ -8,6 +8,17 @@ from rich.console import Console
 from cachetools import LRUCache
 from urllib.parse import urlparse
 from src.logging import log_execution
+import logging
+
+logger = logging.getLogger(__name__)
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s - %(levelname)s - %(message)s", 
+    handlers=[
+        logging.StreamHandler(), 
+    ]
+)
 
 class WebsiteContentSummarizer(RelevantLinkExtractor):
     """
@@ -57,13 +68,10 @@ class WebsiteContentSummarizer(RelevantLinkExtractor):
         if self.verbosity:
             self.console = Console()
         self._request_cache = LRUCache(maxsize=10) 
-    
 
     def _log(self, message: str, description: str):
         self.console.print(f"{'='*20} {description} {'='*20}")
         self.console.print(message)
-
-
 
     def _get_soup(self, url: str) -> Optional[BeautifulSoup]:
         """

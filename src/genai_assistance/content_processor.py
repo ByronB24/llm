@@ -1,6 +1,6 @@
 from typing import List, Dict, Tuple
 from dataclasses import dataclass, field
-from openai import OpenAI
+from openai import AsyncOpenAI
 import json
 import asyncio
 
@@ -53,7 +53,7 @@ class GenAIBusinessListingProcessor:
     def __init__(self,
                  cleaning_prompts: Tuple[str, str],
                  extraction_prompts: Tuple[str, str],
-                 openai_instance: OpenAI,
+                 openai_instance: AsyncOpenAI,
                  openai_model: str,
                  concurrency_limit:int = 10) -> None:
 

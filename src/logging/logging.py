@@ -1,5 +1,8 @@
 from functools import wraps
 import logging
+
+logger = logging.getLogger(__name__)
+
 logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s - %(levelname)s - %(message)s", 
@@ -9,7 +12,6 @@ logging.basicConfig(
 )
 
 
-logger = logging.getLogger(__name__)
 
 def log_execution(description: str):
     """

@@ -9,6 +9,8 @@ from src.selenium import with_driver, ChromeDriverMixin
 class BusinessListingScraper(ChromeDriverMixin):
     """
     A scraper for extracting business listings and content from a paginated website.
+    Not optimised and quite clunky. 
+    Gets the job done. 
 
     """
     def __init__(self, 

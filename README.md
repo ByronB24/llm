@@ -1,9 +1,9 @@
 # GenAI Demo Repository
 
 ## **Introduction**
-This repository serves as a collection of **demonstrations** showcasing **Generative AI (GenAI)** applications. 
+This repository serves as a collection to showcase **Generative AI (GenAI)** applications. 
 
-The goal of this repository is to serve as an **educational and practical resource** for developers, researchers, and enthusiasts looking to dive into **GenAI**. 
+The goal is to serve as an **educational and practical resource** for developers, researchers, and enthusiasts looking to dive into **GenAI**. 
 
 ---
 ### **Current Demos**

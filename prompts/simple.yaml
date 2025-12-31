@@ -1,0 +1,5 @@
+system: |
+  You are a helpful assistant. Keep answers short.
+
+user: |
+  Echo this back exactly: "{{content}}"

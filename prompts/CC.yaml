@@ -1,0 +1,8 @@
+system: |
+  You are a content refinement assistant. Remove irrelevant details.
+
+user: |
+  Clean this:
+  """
+  {{content}}
+  """

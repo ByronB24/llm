@@ -1,0 +1,31 @@
+providers:
+  - id: openai:gpt-4
+    config:
+      apiKey: ${OPENAI_API_KEY}
+
+prompts:
+  - id: content-cleaner
+    label: Content Cleaner
+    messages:
+      - role: system
+        content: file://../../prompts/content_clean_system.txt
+      - role: user
+        content: file://../../prompts/content_clean_user.txt
+
+  - id: advisor-chat
+    label: Advisor Chat
+    messages:
+      - role: system
+        content: file://../../prompts/chat.txt
+      - role: user
+        content: "{{user_question}}"
+
+  - id: info-extraction
+    label: Information Extraction
+    messages:
+      - role: system
+        content: file://../../prompts/information_extraction_system.txt
+      - role: user
+        content: file://../../prompts/information_extraction_user.txt
+
+varsPath: data/example-listings.json

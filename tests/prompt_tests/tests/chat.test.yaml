@@ -1,0 +1,24 @@
+providers:
+  - id: openai:gpt-4
+
+prompts:
+  - id: advisor-chat
+    label: Advisor Chat
+    raw: file://${PROMPT_TEMP_DIR}/chat_full.txt
+
+prompt: advisor-chat
+
+tests:
+  - name: chat_budget_question
+    vars:
+      user_question: "What kind of business would suit someone with £400k in the South East?"
+    assert:
+      - type: llm-rubric
+        value: "Asks at least one clarifying question and discusses ROI/budget fit; does not list specific businesses without data."
+
+  - name: chat_vague_recession
+    vars:
+      user_question: "Any recession-proof options?"
+    assert:
+      - type: llm-rubric
+        value: "Provides thoughtful guidance, explores trade-offs, avoids fabricating listings, and asks for more detail."

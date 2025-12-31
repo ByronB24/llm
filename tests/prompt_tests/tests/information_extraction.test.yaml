@@ -1,0 +1,35 @@
+providers:
+  - id: openai:gpt-4
+
+prompts:
+  - id: info-extraction
+    label: Information Extraction
+    raw: file://${PROMPT_TEMP_DIR}/information_extraction.txt
+
+varsPath: ../data/example-listings.json
+
+prompt: info-extraction
+
+tests:
+  - name: molly_maid_listing
+    assert:
+      - type: javascript
+        value: |
+          const obj = JSON.parse(output);
+          const required = [
+            "Location",
+            "Asking price",
+            "Turnover",
+            "Net profit",
+            "Franchise",
+            "Recommendation"
+          ];
+          required.forEach((key) => {
+            if (!(key in obj)) {
+              throw new Error(`Missing field: ${key}`);
+            }
+          });
+          if (!["Shortlist", "Leave"].includes(obj.Recommendation)) {
+            throw new Error("Recommendation must be 'Shortlist' or 'Leave'");
+          }
+          return true;

@@ -65,9 +65,12 @@ class RelevantLinkExtractor:
             A list of dictionaries, each containing the relevant link and its type.
         """
 
-        system_prompt = self.links_filter_system_prompt
+        if not self.links_filter_system_prompt or not self.links_filter_user_prompt:
+            logger.warning("Link filter prompts are not set; skipping link filtering.")
+            return []
 
-        user_prompt = self.links_filter_user_prompt.format(url = base_url).join(links)
+        system_prompt = self.links_filter_system_prompt
+        user_prompt = self.links_filter_user_prompt.format(url=base_url).join(links)
 
 
         response = self.openai_instance.chat.completions.create(

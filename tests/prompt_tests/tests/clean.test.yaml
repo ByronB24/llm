@@ -1,25 +1,17 @@
-providers:
-  - id: openai:gpt-4
-
-prompts:
-  - id: content-cleaner
-    label: Content Cleaner
-    raw: file://${PROMPT_TEMP_DIR}/content_clean.txt
-
-varsPath: ../data/example-listings.json
+﻿extends: ../promptfooconfig.yaml
 
 prompt: content-cleaner
 
 tests:
   - name: molly_maid_listing
+    vars: ${file:../data/example-listings.json}
     assert:
-      # PRESERVED business info
       - type: contains
         value: "Molly Maid Virginia Water In Surrey For Sale"
       - type: contains
-        value: "Turnover: ¶œ420,000"
+        value: "Turnover: 420,000"
       - type: contains
-        value: "Net Profit: ¶œ50K - ¶œ100K"
+        value: "Net Profit: 50K - 100K"
       - type: contains
         value: "Employees: 12-14"
       - type: contains
@@ -29,7 +21,6 @@ tests:
       - type: regex
         value: "Franchise terms:.*5-year term"
 
-      # REMOVED irrelevant noise
       - type: not_contains
         value: "Choose your country"
       - type: not_contains
@@ -43,7 +34,6 @@ tests:
       - type: not_contains
         value: "Contact Seller"
 
-      # LOGICAL VALIDATION (output remains substantive)
       - type: javascript
         value: |
           return output.length > 1000 && output.includes("Property Information");

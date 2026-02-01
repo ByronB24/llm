@@ -21,8 +21,24 @@ def _load_prompt(path: str, expect_user_block: bool = True) -> tuple[str, str]:
     ext = Path(path).suffix.lower()
     if ext in {".yaml", ".yml"}:
         data = yaml.safe_load(Path(path).read_text(encoding="utf-8")) or {}
-        system = data.get("system", "")
-        user = data.get("user", "") if expect_user_block else ""
+        # Newer prompts are lists of role/content blocks
+        if isinstance(data, list):
+            system = ""
+            user = ""
+            for entry in data:
+                if not isinstance(entry, dict):
+                    continue
+                role = str(entry.get("role", "")).lower()
+                content = str(entry.get("content", "") or "")
+                if role == "system" and not system:
+                    system = content
+                if role == "user" and expect_user_block and not user:
+                    user = content
+            return system.strip(), user.strip()
+
+        # Legacy mapping-based YAML
+        system = str(data.get("system", "") or "")
+        user = str(data.get("user", "") or "") if expect_user_block else ""
         return system.strip(), user.strip()
 
     raw_prompt = Path(path).read_text(encoding="utf-8")

@@ -1,0 +1,21 @@
+﻿providers:
+  - id: openai:gpt-4
+    config:
+      apiKey: ${OPENAI_API_KEY}
+
+prompts:
+  - id: simple-echo
+    label: Simple Echo
+    raw: file://${PROMPT_TEMP_DIR}/simple.txt
+
+  - id: content-cleaner
+    label: Content Cleaner
+    raw: file://${PROMPT_TEMP_DIR}/content_clean.txt
+
+  - id: advisor-chat
+    label: Advisor Chat
+    raw: file://${PROMPT_TEMP_DIR}/chat_full.txt
+
+  - id: info-extraction
+    label: Information Extraction
+    raw: file://${PROMPT_TEMP_DIR}/information_extraction.txt

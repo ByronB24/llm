@@ -33,6 +33,7 @@ def log_execution(description: str):
             
             except Exception as e:
                 logger.exception(f"Error during {description}: {str(e)}")
-                return None
+                # Propagate the exception so callers can handle it; returning None hides the real error.
+                raise
         return wrapper
     return decorator

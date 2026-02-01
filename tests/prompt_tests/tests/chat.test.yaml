@@ -1,10 +1,4 @@
-providers:
-  - id: openai:gpt-4
-
-prompts:
-  - id: advisor-chat
-    label: Advisor Chat
-    raw: file://${PROMPT_TEMP_DIR}/chat_full.txt
+﻿extends: ../promptfooconfig.yaml
 
 prompt: advisor-chat
 

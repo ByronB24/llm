@@ -1,0 +1,50 @@
+﻿extends: ../promptfooconfig.yaml
+
+prompt: content-cleaner
+
+varsPath: ../data/example-listings.json
+
+tests:
+  - name: molly_maid_listing
+    assert:
+      # PRESERVED business info
+      - type: contains
+        value: "Molly Maid Virginia Water In Surrey For Sale"
+      - type: contains
+        value: "Turnover: ¶ô""420,000"
+      - type: contains
+        value: "Net Profit: ¶ô""50K - ¶ô""100K"
+      - type: contains
+        value: "Employees: 12-14"
+      - type: contains
+        value: "Franchise opportunity: Franchise Resale"
+      - type: contains
+        value: "Home-based: This business can be run from home"
+      - type: regex
+        value: "Franchise terms:.*5-year term"
+
+      # REMOVED irrelevant noise
+      - type: not_contains
+        value: "Choose your country"
+      - type: not_contains
+        value: "Advertisement"
+      - type: not_contains
+        value: "bookmark"
+      - type: not_contains
+        value: "share"
+      - type: not_contains
+        value: "print"
+      - type: not_contains
+        value: "Contact Seller"
+
+      # LOGICAL VALIDATION (output remains substantive)
+      - type: javascript
+        value: |
+          return output.length > 1000 && output.includes("Property Information");
+
+  - name: content_clean_echo
+    vars:
+      content: "This is a basic test!"
+    assert:
+      - type: contains
+        value: "This is a basic test"

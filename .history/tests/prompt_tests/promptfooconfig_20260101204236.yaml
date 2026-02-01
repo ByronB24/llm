@@ -1,0 +1,18 @@
+﻿providers:
+  - id: openai:gpt-4
+    config:
+      apiKeyEnvar: OPENAI_API_KEY   # or omit config entirely
+
+prompts:
+  - id: content-cleaner
+    label: Content Cleaner
+    raw: file://../../prompts/content_clean.yaml
+  - id: advisor-chat
+    label: Advisor Chat
+    raw: file://../../prompts/chat.yaml
+  - id: info-extraction
+    label: Information Extraction
+    raw: file://../../prompts/information_extraction.yaml
+
+tests:
+  - file://tests/*.test.yaml

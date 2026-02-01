@@ -1,0 +1,30 @@
+﻿extends: ../promptfooconfig.yaml
+
+prompt: info-extraction
+
+defaultTest:
+  vars: ${file:../data/example-listings.json}
+
+tests:
+  - name: molly_maid_listing
+    assert:
+      - type: javascript
+        value: |
+          const obj = JSON.parse(output);
+          const required = [
+            "Location",
+            "Asking price",
+            "Turnover",
+            "Net profit",
+            "Franchise",
+            "Recommendation"
+          ];
+          required.forEach((key) => {
+            if (!(key in obj)) {
+              throw new Error(`Missing field: ${key}`);
+            }
+          });
+          if (!["Shortlist", "Leave"].includes(obj.Recommendation)) {
+            throw new Error("Recommendation must be 'Shortlist' or 'Leave'");
+          }
+          return true;

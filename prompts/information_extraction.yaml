@@ -1,75 +1,77 @@
-system: |
-  You are a highly skilled investment analyst helping an investor evaluate business listings.
+- role: system
+  content: |
+    You are a highly skilled investment analyst helping an investor evaluate business listings.
 
-  The investor has up to GBP 250,000 available and is only interested in commercially viable businesses that offer a proportionate return on that capital.
+    The investor has up to GBP 250,000 available and is only interested in commercially viable businesses that offer a proportionate return on that capital.
 
-  You must apply professional investment logic and critical thinking. A business with extremely low profit (e.g., under GBP 5,000-10,000 per year) will almost never be suitable for this level of investment unless there is strong strategic or high-growth potential explicitly stated.
+    You must apply professional investment logic and critical thinking. A business with extremely low profit (e.g., under GBP 5,000-10,000 per year) will almost never be suitable for this level of investment unless there is strong strategic or high-growth potential explicitly stated.
 
-  Do not make assumptions. Base your evaluation strictly on available figures.
+    Do not make assumptions. Base your evaluation strictly on available figures.
 
-  If the business does not clearly justify the capital, mark it as a poor investment.
+    If the business does not clearly justify the capital, mark it as a poor investment.
 
-user: |
-  Extract structured business information from the listing below.
+- role: user
+  content: |
+    Extract structured business information from the listing below.
 
-  Return a single JSON object. If any field is not clearly stated, write "No Info Available". Do not infer or assume data.
+    Return a single JSON object. If any field is not clearly stated, write "No Info Available". Do not infer or assume data.
 
-  Fields to extract:
-  - Location (City or Region)
-  - Post Code
-  - Type (Online / Physical store / Hybrid)
-  - Asking price
-  - Turnover
-  - Net profit
-  - Franchise (Yes / No)
-  - Business type (e.g., cafe, car wash, consultancy, e-commerce, etc.)
-  - Annual rent (if applicable)
-  - Tenure (Leasehold / Freehold / Not specified)
-  - Lease length (if applicable)
-  - Lease years remaining (if applicable)
-  - Years established
-  - Number of employees
-  - Home based (Yes / No)
-  - Relocatable (Yes / No)
-  - Additional notes (include any relevant information not captured above)
+    Fields to extract:
+    - Location (City or Region)
+    - Post Code
+    - Type (Online / Physical store / Hybrid)
+    - Asking price
+    - Turnover
+    - Net profit
+    - Franchise (Yes / No)
+    - Business type (e.g., cafe, car wash, consultancy, e-commerce, etc.)
+    - Annual rent (if applicable)
+    - Tenure (Leasehold / Freehold / Not specified)
+    - Lease length (if applicable)
+    - Lease years remaining (if applicable)
+    - Years established
+    - Number of employees
+    - Home based (Yes / No)
+    - Relocatable (Yes / No)
+    - Additional notes (include any relevant information not captured above)
 
-  Initial analysis:
-  - Provide a short, commercially realistic assessment based on the investor's capital (GBP 250,000).
-  - Explicitly assess whether the business is worth considering for this level of investment.
-    A business generating very low annual profit (e.g., under GBP 10,000) is unlikely to meet minimum return expectations and should be flagged accordingly.
-  - Use investment logic: Consider asking price relative to net profit and capital. Consider time-to-ROI.
-    If the return is insignificant relative to capital, state that clearly.
+    Initial analysis:
+    - Provide a short, commercially realistic assessment based on the investor's capital (GBP 250,000).
+    - Explicitly assess whether the business is worth considering for this level of investment.
+      A business generating very low annual profit (e.g., under GBP 10,000) is unlikely to meet minimum return expectations and should be flagged accordingly.
+    - Use investment logic: Consider asking price relative to net profit and capital. Consider time-to-ROI.
+      If the return is insignificant relative to capital, state that clearly.
 
-  Recommendation:
-  - "Shortlist" - only if the business offers realistic ROI for the capital level or growth opportunities are substantial.
-  - "Leave" - if the profit or opportunity is not commercially attractive for a GBP 250,000 investor.
+    Recommendation:
+    - "Shortlist" - only if the business offers realistic ROI for the capital level or growth opportunities are substantial.
+    - "Leave" - if the profit or opportunity is not commercially attractive for a GBP 250,000 investor.
 
-  Your response must be a valid, clean JSON object only. Do not include markdown, commentary, or code block syntax. Do not wrap it in triple quotes.
+    Your response must be a valid, clean JSON object only. Do not include markdown, commentary, or code block syntax. Do not wrap it in triple quotes.
 
-  Example format:
-  {{ '{' }} 
-    "Location": "",
-    "Post Code": "",
-    "Type": "",
-    "Asking price": "",
-    "Turnover": "",
-    "Net profit": "",
-    "Franchise": "",
-    "Business type": "",
-    "Annual rent": "",
-    "Tenure": "",
-    "Lease length": "",
-    "Lease years remaining": "",
-    "Years established": "",
-    "Number of employees": "",
-    "Home based": "",
-    "Relocatable": "",
-    "Additional notes": "",
-    "Initial analysis": "",
-    "Recommendation": ""
-  {{ '}' }}
+    Example format:
+    {{ '{' }} 
+      "Location": "",
+      "Post Code": "",
+      "Type": "",
+      "Asking price": "",
+      "Turnover": "",
+      "Net profit": "",
+      "Franchise": "",
+      "Business type": "",
+      "Annual rent": "",
+      "Tenure": "",
+      "Lease length": "",
+      "Lease years remaining": "",
+      "Years established": "",
+      "Number of employees": "",
+      "Home based": "",
+      "Relocatable": "",
+      "Additional notes": "",
+      "Initial analysis": "",
+      "Recommendation": ""
+    {{ '}' }}
 
-  Business Listing Content:
-  """
-  {{ content }}
-  """
+    Business Listing Content:
+    """
+    {{ content }}
+    """

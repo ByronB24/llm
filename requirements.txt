@@ -22,6 +22,7 @@ modal==0.72.47
 numpy==1.26.4
 ollama==0.4.7
 openai==1.70.0
+promptfoo
 pandas==2.2.3
 plotly==5.24.1
 psutil==6.1.1
